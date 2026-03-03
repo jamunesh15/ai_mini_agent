@@ -47,7 +47,7 @@
             // Use relative URL for Vercel deployment, localhost for development
             const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:8000/generate'
-                : '/generate';
+                : '/api/generate';
 
             try {
                 const res = await fetch(apiUrl, {
