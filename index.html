@@ -44,8 +44,13 @@
             error.classList.add('hidden');
             results.classList.add('hidden');
 
+            // Use relative URL for Vercel deployment, localhost for development
+            const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:8000/generate'
+                : '/generate';
+
             try {
-                const res = await fetch('http://localhost:8000/generate', {
+                const res = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ description: text })

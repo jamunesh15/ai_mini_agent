@@ -47,7 +47,7 @@ async def generate_brd(request: GenerateRequest):
     
     # Call Gemini API and parse JSON
     try:
-        model = genai.GenerativeModel('gemini-1.5-pro')
+        model = genai.GenerativeModel('gemini-2.5-flash')
         response = model.generate_content(prompt)
         print(f"Raw response: {response.text}")
         brd_data = json.loads(clean_json_response(response.text))
@@ -80,3 +80,6 @@ async def generate_brd(request: GenerateRequest):
         "api_intents": api_intents,
         "validation": {"status": "passed", "message": "Validation passed."}
     }
+
+# Vercel serverless handler
+handler = app
