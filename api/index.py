@@ -26,8 +26,7 @@ def clean_json_response(text: str) -> str:
     if text.endswith("```"): text = text[:-3]
     return text.strip()
 
-@app.post("/api/generate")
-async def generate_brd(request: GenerateRequest):
+async def process_generate(request: GenerateRequest):
     desc_text = request.description.lower()
     
     prompt = f"""
@@ -68,3 +67,12 @@ async def generate_brd(request: GenerateRequest):
         "api_intents": api_intents,
         "validation": {"status": "passed", "message": "Validation passed."}
     }
+
+# Handle both route patterns for Vercel compatibility
+@app.post("/generate")
+async def generate_brd(request: GenerateRequest):
+    return await process_generate(request)
+
+@app.post("/api/generate")
+async def generate_brd_api(request: GenerateRequest):
+    return await process_generate(request)
